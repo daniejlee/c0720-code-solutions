@@ -18,3 +18,4 @@ const evenNumbers = numbers.filter(num => num % 2 === 0);
 const overFive = numbers.filter(num => num > 5);
 const startWithE = names.filter(name => name[0] === 'E');
 const haveD = names.filter(name => name.toLowerCase().includes('d'));
+console.log(evenNumbers, overFive, startWithE, haveD);
