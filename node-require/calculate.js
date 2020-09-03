@@ -21,5 +21,3 @@ switch (operation) {
     console.log('result: ' + divide(num1, num2));
     break;
 }
-
-// if (process.argv[])
