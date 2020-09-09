@@ -7,7 +7,6 @@ app.use((req, res, next) => {
     root: __dirname
   };
   res.sendFile(req.originalUrl, options, err => {
-    // eslint-disable-next-line no-console
     if (err) next(err);
     else console.log('File Sent!');
   });
