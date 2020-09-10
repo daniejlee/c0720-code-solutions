@@ -10,7 +10,7 @@ const grades = [
     grade: '7'
   },
   {
-    id: 2,
+    id: 7,
     name: 'rich',
     course: 'golf',
     grade: '6'
@@ -22,7 +22,7 @@ app.get('/api/grades', (req, res) => {
 });
 
 app.delete('/api/grades/:id', (req, res) => {
-  const arrIndex = grades.find(key => key.id === req.params.id);
+  const arrIndex = grades.findIndex(key => key.id === Number(req.params.id));
   grades.splice(arrIndex, 1);
   res.sendStatus(204);
 });
