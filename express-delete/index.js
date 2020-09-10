@@ -24,7 +24,7 @@ app.get('/api/grades', (req, res) => {
 app.delete('/api/grades/:id', (req, res) => {
   const arrIndex = grades.find(key => key.id === req.params.id);
   grades.splice(arrIndex, 1);
-  res.send('Entry Deleted');
+  res.sendStatus(204);
 });
 
 app.listen(3000, () => {
