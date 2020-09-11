@@ -1,16 +1,13 @@
-/* eslint-disable no-console, no-unused-vars */
 const express = require('express');
 const app = express();
 const jsonData = require('./data.json');
-const parseJson = express.json();
 const fs = require('fs');
-const { json } = require('express');
 
 const positiveIntError = { error: 'id must be a positive integer' };
 const contentError = { error: 'content is a required field' };
 const unexpectedError = { error: 'An unexpected error has occurred' };
 
-app.use(parseJson);
+app.use(express.json());
 
 app.get('/api/notes', (req, res) => {
   const notesArr = [];
@@ -22,19 +19,19 @@ app.get('/api/notes', (req, res) => {
 
 app.get('/api/notes/:id', (req, res) => {
   const noIdMatchError = { error: `cannot find note with id ${req.params.id}` };
-  if (Math.sign(req.params.id) !== 1) {
-    res.status(400).send(positiveIntError);
-  } else {
+
+  if ((Math.sign(req.params.id) === 1) && Number.isInteger(Number(req.params.id))) {
     if (req.params.id in jsonData.notes) {
       res.status(200).send(jsonData.notes[req.params.id]);
     } else {
       res.status(404).send(noIdMatchError);
     }
+  } else {
+    res.status(400).send(positiveIntError);
   }
 });
 
 app.post('/api/notes', (req, res) => {
-  const contentError = { error: 'content is a required field' };
   if (!req.body.content) {
     res.status(400).send(contentError);
   } else {
@@ -43,6 +40,7 @@ app.post('/api/notes', (req, res) => {
     jsonData.nextId++;
     fs.writeFile('data.json', JSON.stringify(jsonData, null, 2), err => {
       if (err) {
+        console.error(err);
         res.status(500).send(unexpectedError);
       } else {
         res.status(201).send(req.body);
@@ -53,13 +51,12 @@ app.post('/api/notes', (req, res) => {
 
 app.delete('/api/notes/:id', (req, res) => {
   const noIdMatchError = { error: `cannot find note with id ${req.params.id}` };
-  if (Math.sign(req.params.id) !== 1) {
-    res.status(400).send(positiveIntError);
-  } else {
+  if ((Math.sign(req.params.id) === 1) && Number.isInteger(Number(req.params.id))) {
     if (req.params.id in jsonData.notes) {
       delete jsonData.notes[req.params.id];
       fs.writeFile('data.json', JSON.stringify(jsonData, null, 2), err => {
         if (err) {
+          console.error(err);
           res.status(500).send(unexpectedError);
         } else {
           res.sendStatus(204);
@@ -68,12 +65,15 @@ app.delete('/api/notes/:id', (req, res) => {
     } else {
       res.status(404).send(noIdMatchError);
     }
+  } else {
+    res.status(400).send(positiveIntError);
   }
 });
 
 app.put('/api/notes/:id', (req, res) => {
   const noIdMatchError = { error: `cannot find note with id ${req.params.id}` };
-  if (Math.sign(req.params.id) !== 1) {
+
+  if ((Math.sign(req.params.id) !== 1) || !Number.isInteger(Number(req.params.id))) {
     res.status(400).send(positiveIntError);
   } else if (!req.body.content) {
     res.status(400).send(contentError);
@@ -82,6 +82,7 @@ app.put('/api/notes/:id', (req, res) => {
       jsonData.notes[req.params.id].content = req.body.content;
       fs.writeFile('data.json', JSON.stringify(jsonData, null, 2), err => {
         if (err) {
+          console.error(err);
           res.status(500).send(unexpectedError);
         } else {
           res.status(200).send(jsonData.notes[req.params.id]);
@@ -94,5 +95,6 @@ app.put('/api/notes/:id', (req, res) => {
 });
 
 app.listen(3000, () => {
+/* eslint-disable-next-line no-console */
   console.log('Listening to 3000');
 });
