@@ -1,0 +1,51 @@
+.group {
+  display: inline-flex;
+  align-items: center;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 100px;
+  height: 34px;
+  cursor: pointer;
+  border: 2px solid black;
+  border-radius: 30px;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  height: 100%;
+  width: 50%;
+  border-radius: 30px;
+}
+
+.switch-on {
+  background-color: green;
+}
+
+.switch-off {
+  background-color: lightgray;
+}
+
+.slider-on {
+  right: 0;
+}
+
+.slider-off {
+  left: 0;
+}
+
+.power-text {
+  text-align: center;
+  font-size: 26px;
+  margin-left: 20px;
+  min-height: 50px;
+  display: inline-flex;
+  align-items: center;
+  text-transform: uppercase;
+}
