@@ -1,0 +1,22 @@
+.watch {
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+  border: 2px solid black;
+  border-radius: 50%;
+  margin: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.time {
+  font-size: 32px;
+}
+
+div > i {
+  cursor: pointer;
+  color: black;
+  font-size: 32px;
+  padding-left: 90px;
+}
