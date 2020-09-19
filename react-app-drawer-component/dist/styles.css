@@ -1,0 +1,39 @@
+.side-bar {
+  height: 100%;
+  width: 350px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  border-right: 2px solid black;
+  background-color: white;
+  cursor: default;
+}
+
+.overlay {
+  cursor: pointer;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: grey;
+}
+
+.nav-item {
+  list-style-type: none;
+  font-size: 30px;
+  font-family: Tahoma, Geneva, sans-serif;
+  padding-top: 20px;
+  cursor: pointer;
+}
+
+.nav-item-menu {
+  font-size: 55px;
+}
+
+i {
+  cursor: pointer;
+  font-size: 34px;
+}
