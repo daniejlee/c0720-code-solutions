@@ -43,7 +43,7 @@ class App extends React.Component {
     })
       .then(response => response.json())
       .then(data => {
-        const updatedTodos = this.state.todos;
+        const updatedTodos = this.state.todos.slice();
         updatedTodos.push(data);
         this.setState({ todos: updatedTodos });
       })
@@ -53,20 +53,20 @@ class App extends React.Component {
   }
 
   toggleCompleted(todoId) {
-    const todosList = this.state.todos.slice(0);
-    const selectedIndex = todosList.findIndex(arr => arr.id === todoId);
-    const selectedElement = todosList[selectedIndex];
-    selectedElement.isCompleted = !selectedElement.isCompleted;
+    const selectedIndex = this.state.todos.findIndex(todo => todo.id === todoId);
+    const updateStatus = { isCompleted: !this.state.todos[selectedIndex].isCompleted };
     fetch(`/api/todos/${todoId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(selectedElement)
+      body: JSON.stringify(updateStatus)
     })
       .then(response => response.json())
       .then(data => {
-        this.setState({ todos: todosList });
+        const newTodos = this.state.todos.slice(0);
+        newTodos[selectedIndex] = data;
+        this.setState({ todos: newTodos });
       })
       .catch(error => {
         console.error(error);

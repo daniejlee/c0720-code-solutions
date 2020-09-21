@@ -13,12 +13,17 @@
     {
       "id": 7,
       "task": "Get a job.",
-      "isCompleted": true
+      "isCompleted": false
     },
     {
       "task": "hello",
-      "isCompleted": true,
+      "isCompleted": false,
       "id": 8
+    },
+    {
+      "task": "hi",
+      "isCompleted": false,
+      "id": 9
     }
   ]
 }
